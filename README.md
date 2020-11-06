@@ -1,6 +1,6 @@
-# Prevalence Script
+# USDA FoodCentral Prevalence Script & Distribution Graph
 
-We will be a creating a prevalence script to find out the prevalence of ingredients from the USDA FoodCentral database. The hash file was created from https://github.com/r-flores/Ingredient_CoOccurrence. I created a csv file after obtaining the hash, which is what I will be using for this code. Prevalence is the number of occurrences of an ingredient divided by the total number of occurrences. One occurrence is how many times an ingredient shows up on a label.
+We will be a creating a prevalence script to find out the prevalence of ingredients from the USDA FoodCentral database. The hash file was created from https://github.com/r-flores/Ingredient_CoOccurrence. I created a csv file after obtaining the hash, which is what I will be using for this code. Prevalence is the number of occurrences of an ingredient divided by the total number of occurrences. One occurrence is how many times an ingredient shows up on a label. We will also be creating distribution graph of the top 20 ingredients with the most number of occurrences. I did the same thing with the Open Food Facts database, with the code posted as two separate files (one for the prevalence script, one for the distribution graph). 
 
 ## Import
 
@@ -38,7 +38,7 @@ while True:
         break;
 ```
 
-    Please enter your ingredient: citric acid
+    Please enter your ingredient: citrc acid
 
 
 ## Prevalence
@@ -57,7 +57,36 @@ print('The prevalence of ' + ing + ' is ' + str(prevalence))
 
 ```
 
-    The prevalence of citric acid is 0.015264153476763655
+    The prevalence of citrc acid is 3.29089396476374e-07
+
+
+# Distribution Graph
+
+
+```python
+# Import
+import matplotlib.pyplot as plt; plt.rcdefaults()
+import pandas as pd
+
+# Name the csv file 
+graph = pd.read_csv("foodcentral.hashfile.csv")
+# Use top 20 ingredients
+ing = graph.nlargest(20,['Occurrence'])
+
+# Create horizontal bar graph
+plt.barh(ing.Ingredient, ing.Occurrence)
+# Label the axes
+plt.xlabel("Occurrence", fontsize = 12)
+plt.ylabel("Ingredient", fontsize = 12)
+# Title the scatter plot
+plt.title("Ingredient Occurrence Bar Graph")
+plt.gca().invert_yaxis()
+# Display the scatter plot
+plt.show()
+```
+
+
+![png](output_13_0.png)
 
 
 
