@@ -1,0 +1,18 @@
+## Create prevalence script for hash
+# Import pandas
+import pandas as pd
+
+# Name csv file
+sample_data = pd.read_csv('openfoodfacts.hashfile.csv')
+
+# Enter the ingredient
+ing = input('Please enter your ingredient: ')
+# Name the ingredient
+ingredient = sample_data[sample_data.Ingredient == str(ing)]
+# Total occurrence
+#total_occurrences = sum(sample_data.Occurrence)
+# Calculate the prevalence
+prevalence = max(ingredient.Occurrence)/2219816
+
+# Print the prevalence of the ingredient
+print('The prevalence of ' + ing + ' is ' + str(prevalence))
