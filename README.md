@@ -1,31 +1,66 @@
-# Distribution Graph
-This is code for a distribution graph from the USDA Food Central database. I followed https://github.com/r-flores/Ingredient_CoOccurrence to create a hash file, and then created a csv file using the file, which is in the folder. This distribution graph shows the top 20 ingredients with the most occurrences in the csv file. This is to visualize the ingredients that occur the most in this database and to then compare the top 20 ingredients with other databases.
+# Prevalence Script
 
-# Installation
-I installed (technically imported) matplotlib, which is a plotting library for python that creates visual distributions, and pandas, which is a python software for data manipulation & analysis.
+We will be a creating a prevalence script to find out the prevalence of ingredients from the USDA FoodCentral database. The hash file was created from https://github.com/r-flores/Ingredient_CoOccurrence. I created a csv file after obtaining the hash, which is what I will be using for this code. Prevalence is the number of occurrences of an ingredient divided by the total number of occurrences. One occurrence is how many times an ingredient shows up on a label.
 
+## Import
+
+
+```python
 # Import
-import matplotlib.pyplot as plt; plt.rcdefaults()
 import pandas as pd
-import matplotlib.pyplot as plt; plt.rcdefaults()
-import pandas as pd
-I opened the csv file and named it "graph."
+from spellchecker import SpellChecker
+```
 
-# Name the csv file 
-graph = pd.read_csv("foodcentral.hashfile.csv")
-Usage
-I created a bar graph using the top 20 ingredients, sinc the csv file has many ingredients. I labeled the axes and titled it.
+## File
 
-# Use top 20 ingredients
-ing = graph.nlargest(20,['Occurrence'])
 
-# Create horizontal bar graph
-plt.barh(ing.Ingredient, ing.Occurrence)
-# Label the axes
-plt.xlabel("Occurrence", fontsize = 12)
-plt.ylabel("Ingredient", fontsize = 12)
-# Title the scatter plot
-plt.title("Ingredient Occurrence Bar Graph")
+```python
+# Name csv file
+data = pd.read_csv('foodcentral.hashfile.csv')
 
-# Display the scatter plot
-plt.show()
+```
+
+## Spellchecker
+
+Because so many terms are misspelled in this database, spellchecker will be used to allow for occurrences that are misspelled to be counted in the prevalence of certain ingredients.
+
+
+```python
+ing = input('Please enter your ingredient: ')
+
+# Spell Check
+spell = SpellChecker()
+while True:
+    if ing != spell.correction(ing): # If not spelled correctly
+        print('We cannot find your ingredient; here is what we think you meant to put:', spell.candidates(ing))
+        ing = input('Please enter your ingredient again: ')
+    else: 
+        break;
+```
+
+    Please enter your ingredient: citric acid
+
+
+## Prevalence
+
+Now it is time to calculate the prevalence of the ingredient. After entering your ingredient, the prevalence will be presented. 
+
+
+```python
+#Calculate prevalence 
+ingredient = data[data.Ingredient == str(ing)]
+total_occurrences = sum(data.Occurrence)
+prevalence = max(ingredient.Occurrence)/total_occurrences
+
+# Print prevalence
+print('The prevalence of ' + ing + ' is ' + str(prevalence))
+
+```
+
+    The prevalence of citric acid is 0.015264153476763655
+
+
+
+```python
+
+```
