@@ -1,0 +1,19 @@
+# Import
+import matplotlib.pyplot as plt; plt.rcdefaults()
+import pandas as pd
+
+# Name the csv file 
+gapminder = pd.read_csv("openfoodfacts.hashfile.csv")
+# Use top 20 ingredients
+ing = gapminder.nlargest(20,['Occurrence'])
+
+# Create horizontal bar graph
+plt.barh(ing.Ingredient, ing.Occurrence)
+# Label the axes
+plt.xlabel("Occurrence", fontsize = 12)
+plt.ylabel("Ingredient", fontsize = 12)
+# Title the scatter plot
+plt.title("Ingredient Occurrence Bar Graph")
+
+# Display the scatter plot
+plt.show()
