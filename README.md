@@ -38,7 +38,7 @@ while True:
         break;
 ```
 
-    Please enter your ingredient: citrc acid
+    Please enter your ingredient: citric acid
 
 
 ## Prevalence
@@ -57,7 +57,7 @@ print('The prevalence of ' + ing + ' is ' + str(prevalence))
 
 ```
 
-    The prevalence of citrc acid is 3.29089396476374e-07
+    The prevalence of citric acid is 0.015264153476763655
 
 
 # Distribution Graph
@@ -84,6 +84,7 @@ plt.gca().invert_yaxis()
 # Display the scatter plot
 plt.show()
 ```
+
 
 
 
